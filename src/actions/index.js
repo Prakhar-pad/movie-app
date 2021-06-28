@@ -1,5 +1,8 @@
-{
-    type: "ADD_MOVIES"
-    movie: [m1,m2]
-   
+export const ADD_MOVIES="ADD_MOVIES";
+
+export function addMovies(data){
+    return{
+        type: ADD_MOVIES,
+        movies: data
+    }
 }
