@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { addMovieToList, handleMovieSearch } from '../actions';
 import '../index.css';
 
@@ -60,5 +61,13 @@ class Navbar extends React.Component{
   }
 }
 
+function mapStateToProps({search}){
+    return {
+        search,
+    };
+}
 
-export default Navbar;
+const connectedNavbarComponent=connect(mapStateToProps)(Navbar);
+
+
+export default connectedNavbarComponent;
