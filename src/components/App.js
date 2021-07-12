@@ -1,77 +1,94 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {data} from '../data';
+import { data } from '../data';
 import Navbar from './Navbar';
 import MovieCard from './MovieCard';
+import SimpleForm from './form/SimpleForm';
+import AgGrid from './AgGrid';
 import '../index.css';
-import { addMovies, setShowFavourites } from '../actions';
+import { addMovies, setShowFavourites, addAgGridRowData } from '../actions';
 
-class App extends React.Component{
+class App extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(addMovies(data));
+  }
 
-    componentDidMount(){
-      this.props.dispatch(addMovies(data));
+  isMovieFavourite = (movie) => {
+    const { movies } = this.props;
+
+    const index = movies.favourites.indexOf(movie);
+
+    if (index !== -1) {
+      //found the movie
+      return true;
     }
+    return false;
+  };
 
-    isMovieFavourite=(movie)=>{
-        const {movies}=this.props;
+  onChangeTab = (val) => {
+    this.props.dispatch(setShowFavourites(val));
+  };
 
-        const index=movies.favourites.indexOf(movie);
+  addRowDataToAgGrid = (values) => {
+    console.log('values==', values);
+    this.props.dispatch(addAgGridRowData(values));
+  };
 
-        if(index!==-1){
-            //found the movie
-            return true;
-        }
-        return false;
+  render() {
+    const { movies, search } = this.props; // will return { movies: {}, search: []}
 
-    }
+    const { list, favourites, showFavourites } = movies;
 
-    onChangeTab=(val)=>{
-        this.props.dispatch(setShowFavourites(val));
-    }
+    const displayMovies = showFavourites ? favourites : list;
 
-    render(){
-        const {movies, search}=this.props  // will return { movies: {}, search: []}
-
-        const { list, favourites, showFavourites }=movies;
-
-        const displayMovies= showFavourites ? favourites : list;
-
-        return(
-            <div className='App'>
-                <Navbar search={search}/>
-                <div className="main">
-
-                    <div className='tabs'>
-                        <div className={`tab ${showFavourites?"":"active-tabs"}`} onClick={()=> this.onChangeTab(false) }>Movies</div>
-                        <div className={`tab ${showFavourites?"active-tabs":""}`} onClick={()=> this.onChangeTab(true)}>Favourites</div>
-                    </div>
-
-                    <div className='list'>
-                        {displayMovies.map((movie, index) => (
-                            <MovieCard
-                             movie={movie}
-                             key={ `movies-${index}`}
-                             dispatch={this.props.dispatch}
-                             isFavourite={this.isMovieFavourite(movie)}
-                             />
-                        ))}
-                    </div>
-
-                    {
-                        displayMovies.length===0?<div className="np-movies">No favourite movie!</div>:null
-                    }
-                </div>
+    return (
+      <div className="App">
+        <Navbar search={search} />
+        <div className="main">
+          <div className="tabs">
+            <div
+              className={`tab ${showFavourites ? '' : 'active-tabs'}`}
+              onClick={() => this.onChangeTab(false)}
+            >
+              Movies
             </div>
-        );
-    }
+            <div
+              className={`tab ${showFavourites ? 'active-tabs' : ''}`}
+              onClick={() => this.onChangeTab(true)}
+            >
+              Favourites
+            </div>
+          </div>
+
+          <div className="list">
+            {displayMovies.map((movie, index) => (
+              <MovieCard
+                movie={movie}
+                key={`movies-${index}`}
+                dispatch={this.props.dispatch}
+                isFavourite={this.isMovieFavourite(movie)}
+              />
+            ))}
+          </div>
+
+          {displayMovies.length === 0 ? (
+            <div className="np-movies">No favourite movie!</div>
+          ) : null}
+        </div>
+        <SimpleForm onSubmit={this.addRowDataToAgGrid} />
+        <AgGrid />
+      </div>
+    );
+  }
 }
 
-function mapStateToProps(state){ 
-    return{
-        movies: state.movies,
-        search: state.search
-    };
+function mapStateToProps(state) {
+  console.log('App state', state);
+  return {
+    movies: state.movies,
+    search: state.search,
+  };
 }
 
-const connectedAppComponent=connect(mapStateToProps)(App);
+const connectedAppComponent = connect(mapStateToProps)(App);
 export default connectedAppComponent;
