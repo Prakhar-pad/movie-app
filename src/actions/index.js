@@ -5,6 +5,7 @@ export const SET_SHOW_FAVOURITES = 'SET_SHOW_FAVOURITES';
 export const ADD_MOVIE_TO_LIST = 'ADD_MOVIE_TO_LIST';
 export const ADD_SEARCH_RESULT = 'ADD_SEARCH_RESULT';
 export const ADD_ROW_DATA = 'ADD_ROW_DATA;';
+export const SHOW_GRID_DATA = 'SHOW_GRID_DATA';
 
 export function addMovies(movie) {
   return {

@@ -82,9 +82,13 @@ export function search(state = initialSearchState, action) {
 
 const initialAgGridState = {
   rowData: [
-    { moviename: 'Toyota', actor: 'Celica', description: 35000 },
-    { moviename: 'Ford', actor: 'Mondeo', description: 32000 },
-    { moviename: 'Porsche', actor: 'Boxter', description: 72000 },
+    {
+      moviename: 'Avengers',
+      actor: 'Tony Stark',
+      description: 'Science fiction',
+    },
+    { moviename: 'Superman', actor: 'Henry', description: 'Thriller' },
+    { moviename: 'Hulk', actor: 'Banner', description: 'Adventurous' },
   ],
 };
 
