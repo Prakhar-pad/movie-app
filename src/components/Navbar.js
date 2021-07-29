@@ -1,73 +1,72 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addMovieToList, handleMovieSearch } from '../actions';
+import { addMovieToList, handleMovieSearch, addMovieToGrid } from '../actions';
 import '../index.css';
 
+class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: '',
+    };
+  }
 
-class Navbar extends React.Component{
+  handleSearch = () => {
+    const { searchText } = this.state;
+    this.props.dispatch(handleMovieSearch(searchText));
+  };
 
-    constructor(props){
-        super(props);
-        this.state={
-            searchText:""
-        };
-    }
+  handleChange = (e) => {
+    this.setState({
+      searchText: e.target.value,
+    });
+  };
 
-    handleSearch=()=>{
-        const {searchText}=this.state;
-        this.props.dispatch(handleMovieSearch(searchText));
-    }
+  handleAddToMovies(result) {
+    this.props.dispatch(addMovieToList(result));
+    this.props.dispatch(addMovieToGrid(result));
+    this.setState({
+      showSearchResults: false,
+    });
+  }
 
-    handleChange=(e)=>{
-        this.setState({
-            searchText: e.target.value
-        });
-    }
+  render() {
+    const { result: movie, showSearchResults } = this.props.search;
 
-    handleAddToMovies(result){
-        this.props.dispatch(addMovieToList(result));
-        this.setState({
-            showSearchResults:false
-        });
-    }
+    return (
+      <div className="nav">
+        <div className="search-container">
+          <input onChange={this.handleChange} />
+          <button id="search-btn" onClick={this.handleSearch}>
+            Search
+          </button>
 
-    render(){
-        const {result: movie, showSearchResults}=this.props.search;
-
-    return(
-        <div className='nav'>
-            <div className='search-container'>
-                <input onChange={this.handleChange}/>
-                <button id="search-btn" onClick={this.handleSearch}>Search</button>
-           
-           {showSearchResults &&
+          {showSearchResults && (
             <div className="search-results">
-                <div className="search-result">
-                  <img src={movie.Poster} alt="search-pic"/>
+              <div className="search-result">
+                <img src={movie.Poster} alt="search-pic" />
 
-                  <div className="movie-info">
-                      <span>{movie.Title}</span>
-                      <button onClick={()=>this.handleAddToMovies(movie)}>
-                          Add to Movies
-                      </button>
-                  </div>
-                  </div>
-                  </div>
-           }         
-           
+                <div className="movie-info">
+                  <span>{movie.Title}</span>
+                  <button onClick={() => this.handleAddToMovies(movie)}>
+                    Add to Movies
+                  </button>
+                </div>
+              </div>
             </div>
+          )}
         </div>
+      </div>
     );
   }
 }
 
-function mapStateToProps({search}){
-    return {
-        search,
-    };
+function mapStateToProps({ search }) {
+  return {
+    search,
+  };
 }
 
-const connectedNavbarComponent=connect(mapStateToProps)(Navbar);
-
+const connectedNavbarComponent = connect(mapStateToProps)(Navbar);
 
 export default connectedNavbarComponent;

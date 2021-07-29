@@ -9,6 +9,8 @@ import {
   ADD_SEARCH_RESULT,
   ADD_MOVIE_TO_LIST,
   ADD_ROW_DATA,
+  SHOW_GRID_DATA,
+  ADD_MOVIE_TO_GRID,
 } from '../actions';
 
 const initialMovieState = {
@@ -81,15 +83,7 @@ export function search(state = initialSearchState, action) {
 }
 
 const initialAgGridState = {
-  rowData: [
-    {
-      moviename: 'Avengers',
-      actor: 'Tony Stark',
-      description: 'Science fiction',
-    },
-    { moviename: 'Superman', actor: 'Henry', description: 'Thriller' },
-    { moviename: 'Hulk', actor: 'Banner', description: 'Adventurous' },
-  ],
+  rowData: [],
 };
 
 export function agGridData(state = initialAgGridState, action) {
@@ -98,6 +92,18 @@ export function agGridData(state = initialAgGridState, action) {
       return {
         ...state,
         rowData: [action.rowData, ...state.rowData],
+      };
+
+    case SHOW_GRID_DATA:
+      return {
+        ...state,
+        rowData: action.data,
+      };
+
+    case ADD_MOVIE_TO_GRID:
+      return {
+        ...state,
+        rowData: [action.movie, ...state.rowData],
       };
     default:
       return state;

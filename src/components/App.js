@@ -6,11 +6,17 @@ import MovieCard from './MovieCard';
 import SimpleForm from './form/SimpleForm';
 import AgGrid from './AgGrid';
 import '../index.css';
-import { addMovies, setShowFavourites, addAgGridRowData } from '../actions';
+import {
+  addMovies,
+  setShowFavourites,
+  addAgGridRowData,
+  showGridData,
+} from '../actions';
 
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(addMovies(data));
+    this.props.dispatch(showGridData(data));
   }
 
   isMovieFavourite = (movie) => {
