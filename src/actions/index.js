@@ -7,6 +7,8 @@ export const ADD_SEARCH_RESULT = 'ADD_SEARCH_RESULT';
 export const ADD_ROW_DATA = 'ADD_ROW_DATA;';
 export const SHOW_GRID_DATA = 'SHOW_GRID_DATA';
 export const ADD_MOVIE_TO_GRID = 'ADD_MOVIE_TO_GRID';
+export const REQUEST_API_DATA = 'REQUEST_API_DATA';
+export const RECEIVE_API_DATA = 'RECEIVE_API_DATA';
 
 export function addMovies(movie) {
   return {
@@ -83,5 +85,19 @@ export function addMovieToGrid(movie) {
   return {
     type: ADD_MOVIE_TO_GRID,
     movie,
+  };
+}
+
+export function requestApiData(movie) {
+  return {
+    type: REQUEST_API_DATA,
+    movie,
+  };
+}
+
+export function receiveApiData(data) {
+  return {
+    type: RECEIVE_API_DATA,
+    data,
   };
 }

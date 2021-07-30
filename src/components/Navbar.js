@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addMovieToList, handleMovieSearch, addMovieToGrid } from '../actions';
+import {
+  addMovieToList,
+  handleMovieSearch,
+  addMovieToGrid,
+  requestApiData,
+} from '../actions';
 import '../index.css';
 
 class Navbar extends React.Component {
@@ -11,9 +16,14 @@ class Navbar extends React.Component {
     };
   }
 
+  // handleSearch = () => {
+  //   const { searchText } = this.state;
+  //   this.props.dispatch(handleMovieSearch(searchText));
+  // };
+
   handleSearch = () => {
     const { searchText } = this.state;
-    this.props.dispatch(handleMovieSearch(searchText));
+    this.props.dispatch(requestApiData(searchText));
   };
 
   handleChange = (e) => {
