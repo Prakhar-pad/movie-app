@@ -45,25 +45,27 @@ export function addMovieToList(movie) {
   };
 }
 
-export function handleMovieSearch(movie) {
-  const url = `http://www.omdbapi.com/?apikey=3ca5df7&t=${movie}`;
+// Asynchronous call using Redux-thunk
 
-  return function (dispatch) {
-    fetch(url)
-      .then((response) => response.json())
-      .then((movie) => {
-        console.log('movie', movie);
+// export function handleMovieSearch(movie) {
+//   const url = `http://www.omdbapi.com/?apikey=3ca5df7&t=${movie}`;
 
-        // dispatch an action
-        dispatch(addMovieSearchResult(movie));
-      });
-  };
-}
+//   return function (dispatch) {
+//     fetch(url)
+//       .then((response) => response.json())
+//       .then((movie) => {
+//         console.log('movie', movie);
 
-export function addMovieSearchResult(movie) {
+//         // dispatch an action
+//         dispatch(addMovieSearchResult(movie));
+//       });
+//   };
+// }
+
+export function addMovieSearchResult(payload) {
   return {
     type: ADD_SEARCH_RESULT,
-    movie,
+    payload,
   };
 }
 
@@ -88,16 +90,16 @@ export function addMovieToGrid(movie) {
   };
 }
 
-export function requestApiData(movie) {
+export function requestApiData(payload) {
   return {
     type: REQUEST_API_DATA,
-    movie,
+    payload,
   };
 }
 
-export function receiveApiData(data) {
+export function receiveApiData(payload) {
   return {
     type: RECEIVE_API_DATA,
-    data,
+    payload,
   };
 }

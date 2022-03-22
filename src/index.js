@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
 import createSagaMiddleware from '@redux-saga/core';
 import { Provider } from 'react-redux';
 
 import App from './components/App';
-import rootReducer from './reducers';
-import sagas from './reducers/sagas';
+import rootReducer from './redux/reducers';
+import { mySaga } from './redux/sagas/saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -38,7 +38,7 @@ const store = createStore(
     window.devToolsExtension ? window.devToolsExtension() : (f) => f
   )
 );
-sagaMiddleware.run(sagas);
+sagaMiddleware.run(mySaga);
 
 // export const StoreContext=createContext();
 // console.log('StoreCotext', StoreContext);

@@ -3,7 +3,8 @@ export const fetchData = async (movie) => {
     const response = await fetch(
       `http://www.omdbapi.com/?apikey=3ca5df7&t=${movie}`
     );
-    const data = await response.toJson();
+    const data = await response.json();
+    console.log('fetchData via API=', data);
     return data;
   } catch (e) {
     console.log(e);

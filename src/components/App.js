@@ -11,7 +11,7 @@ import {
   setShowFavourites,
   addAgGridRowData,
   showGridData,
-} from '../actions';
+} from '../redux/actions/index';
 
 class App extends React.Component {
   componentDidMount() {
@@ -29,7 +29,7 @@ class App extends React.Component {
       return true;
     }
     return false;
-  };
+  }; 
 
   onChangeTab = (val) => {
     this.props.dispatch(setShowFavourites(val));

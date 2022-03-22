@@ -14,6 +14,7 @@ import {
   REQUEST_API_DATA,
   RECEIVE_API_DATA,
 } from '../actions';
+import { data } from '../../data';
 
 const initialMovieState = {
   list: [],
@@ -66,11 +67,12 @@ const initialSearchState = {
 };
 
 export function search(state = initialSearchState, action) {
+  console.log('action in search reducer', action);
   switch (action.type) {
     case ADD_SEARCH_RESULT:
       return {
         ...state,
-        result: action.movie,
+        result: action.payload,
         showSearchResults: true,
       };
     case ADD_MOVIE_TO_LIST:
@@ -112,10 +114,20 @@ export function agGridData(state = initialAgGridState, action) {
   }
 }
 
-export function apiData(state = {}, action) {
+const initState = {
+  data: {},
+};
+
+export function apiData(state = initState, action) {
+  console.log('action**', action);
+  console.log('action type=', action.type);
+  console.log('action payload=', action.payload);
   switch (action.type) {
     case RECEIVE_API_DATA:
-      return data;
+      return {
+        ...state,
+        data: action.payload,
+      };
     default:
       return state;
   }

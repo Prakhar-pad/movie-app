@@ -5,8 +5,9 @@ import {
   handleMovieSearch,
   addMovieToGrid,
   requestApiData,
-} from '../actions';
+} from '../redux/actions';
 import '../index.css';
+import { search } from '../redux/reducers';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const { result: movie, showSearchResults } = this.props.search;
+    const { result, showSearchResults } = this.props.search;
 
     return (
       <div className="nav">
@@ -54,11 +55,11 @@ class Navbar extends React.Component {
           {showSearchResults && (
             <div className="search-results">
               <div className="search-result">
-                <img src={movie.Poster} alt="search-pic" />
+                <img src={result.Poster} alt="search-pic" />
 
                 <div className="movie-info">
-                  <span>{movie.Title}</span>
-                  <button onClick={() => this.handleAddToMovies(movie)}>
+                  <span>{result.Title}</span>
+                  <button onClick={() => this.handleAddToMovies(result)}>
                     Add to Movies
                   </button>
                 </div>
@@ -71,9 +72,12 @@ class Navbar extends React.Component {
   }
 }
 
-function mapStateToProps({ search }) {
+function mapStateToProps(state) {
+  console.log('apiData=', state.apiData);
+  console.log('search state=', state.search);
   return {
-    search,
+    search: state.search,
+    apiData: state.apiData,
   };
 }
 
