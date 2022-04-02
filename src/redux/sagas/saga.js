@@ -1,9 +1,8 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import {
   REQUEST_API_DATA,
   receiveApiData,
-  RECEIVE_API_DATA,
   addMovieSearchResult,
 } from '../actions';
 import { fetchData } from './api';

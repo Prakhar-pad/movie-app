@@ -2,12 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   addMovieToList,
-  handleMovieSearch,
   addMovieToGrid,
   requestApiData,
 } from '../redux/actions';
 import '../index.css';
-import { search } from '../redux/reducers';
 
 class Navbar extends React.Component {
   constructor(props) {
