@@ -11,10 +11,8 @@ import {
   ADD_ROW_DATA,
   SHOW_GRID_DATA,
   ADD_MOVIE_TO_GRID,
-  REQUEST_API_DATA,
   RECEIVE_API_DATA,
 } from '../actions';
-import { data } from '../../data';
 
 const initialMovieState = {
   list: [],

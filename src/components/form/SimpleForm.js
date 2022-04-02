@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import { InputLabel, TextField } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 
 const SimpleForm = (props) => {

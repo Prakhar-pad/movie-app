@@ -6,7 +6,5 @@ export const fetchData = async (movie) => {
     const data = await response.json();
     console.log('fetchData via API=', data);
     return data;
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };
