@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
+import { InputLabel, TextField } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 
 const SimpleForm = (props) => {
@@ -9,10 +11,10 @@ const SimpleForm = (props) => {
         <label>Movie Name</label>
         <div>
           <Field
-            name="moviename"
+            name="Title"
             component="input"
             type="text"
-            placeholder="movie name"
+            placeholder="movie name..."
           />
         </div>
       </div>
@@ -20,26 +22,48 @@ const SimpleForm = (props) => {
         <label>Actor</label>
         <div>
           <Field
-            name="actor"
+            name="Actors"
             component="input"
             type="text"
-            placeholder="actor"
+            placeholder="actor..."
           />
         </div>
       </div>
       <div>
-        <label>Description</label>
+        <label>Production</label>
         <div>
-          <Field name="description" component="textarea" />
+          <Field
+            name="Production"
+            component="input"
+            placeholder="production..."
+          />
         </div>
       </div>
       <div>
-        <button type="submit" disabled={pristine || submitting}>
+        {/* <button type="submit" disabled={pristine || submitting}>
           Submit
-        </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
+        </button> */}
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={pristine || submitting}
+        >
+          Submit
+        </Button>
+        {/* <button type="button" disabled={pristine || submitting} onClick={reset}>
           Clear Values
-        </button>
+        </button> */}
+        <Button
+          variant="contained"
+          color="secondary"
+          type="button"
+          disabled={pristine || submitting}
+          onClick={reset}
+          style={styles.Button}
+        >
+          Clear Values
+        </Button>
       </div>
     </form>
   );
@@ -48,5 +72,11 @@ const SimpleForm = (props) => {
 const movieform = reduxForm({
   form: 'simple', // a unique identifier for this form
 })(SimpleForm);
+
+const styles = {
+  Button: {
+    margin: 10,
+  },
+};
 
 export default movieform;

@@ -9,7 +9,12 @@ import {
   ADD_SEARCH_RESULT,
   ADD_MOVIE_TO_LIST,
   ADD_ROW_DATA,
+  SHOW_GRID_DATA,
+  ADD_MOVIE_TO_GRID,
+  REQUEST_API_DATA,
+  RECEIVE_API_DATA,
 } from '../actions';
+import { data } from '../../data';
 
 const initialMovieState = {
   list: [],
@@ -62,11 +67,12 @@ const initialSearchState = {
 };
 
 export function search(state = initialSearchState, action) {
+  console.log('action in search reducer', action);
   switch (action.type) {
     case ADD_SEARCH_RESULT:
       return {
         ...state,
-        result: action.movie,
+        result: action.payload,
         showSearchResults: true,
       };
     case ADD_MOVIE_TO_LIST:
@@ -81,11 +87,7 @@ export function search(state = initialSearchState, action) {
 }
 
 const initialAgGridState = {
-  rowData: [
-    { moviename: 'Toyota', actor: 'Celica', description: 35000 },
-    { moviename: 'Ford', actor: 'Mondeo', description: 32000 },
-    { moviename: 'Porsche', actor: 'Boxter', description: 72000 },
-  ],
+  rowData: [],
 };
 
 export function agGridData(state = initialAgGridState, action) {
@@ -94,6 +96,37 @@ export function agGridData(state = initialAgGridState, action) {
       return {
         ...state,
         rowData: [action.rowData, ...state.rowData],
+      };
+
+    case SHOW_GRID_DATA:
+      return {
+        ...state,
+        rowData: action.data,
+      };
+
+    case ADD_MOVIE_TO_GRID:
+      return {
+        ...state,
+        rowData: [action.movie, ...state.rowData],
+      };
+    default:
+      return state;
+  }
+}
+
+const initState = {
+  data: {},
+};
+
+export function apiData(state = initState, action) {
+  console.log('action**', action);
+  console.log('action type=', action.type);
+  console.log('action payload=', action.payload);
+  switch (action.type) {
+    case RECEIVE_API_DATA:
+      return {
+        ...state,
+        data: action.payload,
       };
     default:
       return state;
@@ -117,4 +150,5 @@ export default combineReducers({
   search: search,
   form: reduxFormReducer,
   agGridData: agGridData,
+  apiData: apiData,
 });

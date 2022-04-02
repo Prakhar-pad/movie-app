@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
+import createSagaMiddleware from '@redux-saga/core';
 import { Provider } from 'react-redux';
 
 import App from './components/App';
-import rootReducer from './reducers';
+import rootReducer from './redux/reducers';
+import { mySaga } from './redux/sagas/saga';
+
+const sagaMiddleware = createSagaMiddleware();
 
 const logger =
   ({ dispatch, getState }) =>
@@ -30,11 +34,11 @@ const logger =
 const store = createStore(
   rootReducer,
   compose(
-    applyMiddleware(thunk, logger),
+    applyMiddleware(sagaMiddleware, logger),
     window.devToolsExtension ? window.devToolsExtension() : (f) => f
   )
 );
-console.log('store', store);
+sagaMiddleware.run(mySaga);
 
 // export const StoreContext=createContext();
 // console.log('StoreCotext', StoreContext);
